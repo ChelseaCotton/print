@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+        xmlns:android="http://schemas.android.com/apk/res/android" 
+        id="cordova.sunmi.printer" version="1.0.0">
+    <name>SunmiPrinter</name>
+    <description>Cordova Plugin for Sunmi Printer using AIDL</description>
+    <keywords>cordova, sunmi, printer, aidl</keywords>
+    <engines>
+        <engine name="cordova" version=">=5.0.0" />
+    </engines>
+        <js-module src="www/sunmiprinter.js" name="sunmiPrinter">
+        <clobbers target="cordova.plugins.SunmiPrinter" />
+    </js-module>
+
+    <platform name="android">
+    	<config-file target="res/xml/config.xml" parent="/*">
+            <feature name="OSPlugin">
+                <param name="android-package" value="com.test.cordova.plugin.SunmiPrinter"/>
+            </feature>
+
+	    </config-file>
+
+        <source-file src="src/android/SunmiPrinter.java" target-dir="src/com/test/cordova/plugin" />
+        <aidl src="src/android/com/sunmi/extprinterservice/ExtPrinterService.aidl" target-dir="src/com/sunmi/extprinterservice"/>
+        
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.BIND_PRINT_SERVICE" />
+            <!-- Add other permissions as needed -->
+        </config-file>
+        <framework src="com.sunmi:printerx:1.0.17" type="gradle" />
+    </platform>
+</plugin>
